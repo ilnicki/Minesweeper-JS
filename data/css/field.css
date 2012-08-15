@@ -1,0 +1,15 @@
+.cell
+{
+	height: 42px;
+	width: 42px;
+    display: block;
+    float: left;
+    margin: 1px;
+    background: url(../images/cells.png) no-repeat;
+}
+
+.field
+{
+    width: 220px;
+    height: 220px;
+}

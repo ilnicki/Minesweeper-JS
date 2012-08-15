@@ -1,0 +1,46 @@
+.button, .empty
+{
+	height: 42px;
+	width: 42px;
+    display: block;
+    float: left;
+    margin: 1px;
+}
+
+.control
+{
+	background: url(../images/arrows.png) no-repeat;
+}
+
+.controls
+{
+    width: 132px;
+    height: 132px;
+    margin-left: 44px;
+    margin-top: 44px;
+}
+
+#up   
+{
+    background-position: 0px;
+}
+
+#right
+{
+    background-position: -43px;
+}
+
+#down
+{
+    background-position: -86px;
+}
+
+#left
+{
+    background-position: -129px;
+}
+
+#flag
+{
+    background-position: -172px;
+}
