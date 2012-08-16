@@ -53,7 +53,7 @@ buildField($width, $height);
             <div class="line c_line_3">
                 <div class="empty"></div>
                 <div class="control button" id="down"></div>
-                <div class="empty"></div>
+                <div class="control button" id="dig"></div>
             </div>
         </div>
     </div>    

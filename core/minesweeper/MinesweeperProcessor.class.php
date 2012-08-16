@@ -8,9 +8,10 @@ Class MinesweeperProcessor
     private $data;
     private $coord;
     
+    public $msg;
+    
     public $fieldWidth = 5;
     public $fieldHeight = 5;
-    
     
     public function __construct($db)
     {
@@ -31,7 +32,7 @@ Class MinesweeperProcessor
         
         $this->setPosition();
         
-        $this->data['msg'] = 'OK';
+        $this->data['msg'] = $this->msg;
         $this->data['todo'] = $this->todolist->getList();
     }
     
@@ -49,19 +50,32 @@ Class MinesweeperProcessor
     
     private function switchFlag()
     {
-        $flag = $this->db->query("SELECT status FROM field WHERE changed =  '1'")->fetch_assoc();
+        $cell = $this->db->query("SELECT status FROM field WHERE changed =  '1'")->fetch_assoc();
         
-        if($flag['status'] != 1)
+        if($cell['status'] == 0)
         {
             $this->db->query("UPDATE field SET status = '1' WHERE changed =  '1'");
             $this->todolist->addTask($this->coord['x_coord'], $this->coord['y_coord'], 'putFlag');
         }
-        else
+        elseif($cell['status'] == 1)
         {
             $this->clearCell();
         }
+        else
+        {
+            $this->msg .= '[WARNING]: Can not put flag into this cell.] '."\n";
+        }
+    }
+    
+    private function digCell()
+    {
+        $cell = $this->db->query("SELECT status FROM field WHERE changed =  '1'")->fetch_assoc();
         
-        
+        if($cell['status'] == 0 or $cell['status'] == 1)
+        {
+            $this->db->query("UPDATE field SET status = '2' WHERE changed =  '1'");
+            $this->todolist->addTask($this->coord['x_coord'], $this->coord['y_coord'], 'digCell');
+        }
     }
     
     private function doCommand($direction)
@@ -98,6 +112,14 @@ Class MinesweeperProcessor
                 
             case 'flag':
                 $this->switchFlag();
+                break;
+            
+            case 'dig':
+                $this->digCell();
+                break;
+                
+            case 'reset':
+                $this->resetField();
                 break;
                 
             case 'refresh':
@@ -157,6 +179,11 @@ Class MinesweeperProcessor
     public function getResult()
     {
         return $this->data;
+    }
+    
+    private function resetField()
+    {
+        $this->db->query("UPDATE field SET status = '0' WHERE status != '0'");
     }
     
     private function createFieldTable($width, $height)

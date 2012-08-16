@@ -9,7 +9,7 @@
 
 .control
 {
-	background: url(../images/arrows.png) no-repeat;
+	background: url(../images/controls.png) no-repeat;
 }
 
 .controls
@@ -43,4 +43,9 @@
 #flag
 {
     background-position: -172px;
+}
+
+#dig
+{
+    background-position: -215px;
 }

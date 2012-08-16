@@ -33,6 +33,9 @@ function processToDoList(list)
             case "putFlag":
                 putFlag(element);
                 break;
+            case "digCell":
+                digCell(element);
+                break;
             case "clearCell":
                 clearCell(element);
                 break;
@@ -58,6 +61,10 @@ function putFlag(element)
     element.css("background-position","-86px");
 }
 
+function digCell(element)
+{
+    element.css("background-position","-172px");
+}
 
 function clearCell(element)
 {
@@ -67,4 +74,9 @@ function clearCell(element)
 function getCellElementByCoord(x, y)
 {
     return $(".f_line_" + y + " .cell_" + x);
+}
+
+function resetField()
+{
+    sendControls("reset");
 }
